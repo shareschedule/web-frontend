@@ -2,7 +2,7 @@
 
 import styled from "styled-components";
 
-const CalendarLayoutContainer = ({ children }) => {
+const CalendarLayoutContainer = ({ children } : Readonly<{children: React.ReactNode;}>) => {
     return (
         <FlexLayout>
             {children}
@@ -13,7 +13,7 @@ const CalendarLayoutContainer = ({ children }) => {
 const FlexLayout = styled.div`
     display: grid;
     grid-template-columns: 1fr 4fr;
-    grid-template-rows: 50px;
+    grid-template-rows: 30px;
     height: 100vh;
 `
 
