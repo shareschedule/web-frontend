@@ -1,17 +1,15 @@
-import styled from "styled-components";
-
+'use client'
+import styled from 'styled-components'
+import React from 'react'
+import { Calendar } from 'react-big-calendar'
 export default function Home() {
   return (
-      <RootContainer>
-        <div>asdf</div>
-        <div>asdf</div>
-        <div>asdf</div>
-      </RootContainer>
-  );
+    <RootContainer>
+      <Calendar />
+    </RootContainer>
+  )
 }
 
 const RootContainer = styled.div`
-    display: flex;
-    
-    
+  display: flex;
 `
