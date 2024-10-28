@@ -1,4 +1,4 @@
-import { Pagination } from '@/app/_type/api/Pagination'
+import { Pagination } from '@/app/_type/api/responseModel/Pagination'
 import { AxiosHeaders } from 'axios'
 
 export type ResponseModel<T> = {

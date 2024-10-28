@@ -11,3 +11,9 @@ export type Calendar = {
   modifiedAt: stringOrDate
   isDeleted: boolean
 }
+
+export type CreateCalendarRequest = {
+  isPublic: boolean
+  title: string
+  content: string
+}

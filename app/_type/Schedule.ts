@@ -13,3 +13,12 @@ export type Schedule = {
   createdAt: stringOrDate
   modifiedAt: stringOrDate
 }
+
+export type CreateScheduleRequest = {
+  title: string
+  isAllday: boolean
+  startDatetime: stringOrDate
+  endDatetime: stringOrDate
+  content?: string
+  location?: string
+}
