@@ -9,7 +9,7 @@ import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import AddScheduleBtn from '@/app/_component/Calendar/AddScheduleBtn'
 import { useModalFormState } from '@/app/_store/calendar/calendar'
-import { useQueryGetSchedules } from '@/app/_hook/SchedulesQuery'
+import { useGetScheduleList } from '@/app/_hook/schedule/GetSchedule'
 
 const localizer = momentLocalizer(moment)
 const DndCalendar = withDragAndDrop(Calendar)
@@ -21,7 +21,11 @@ type CalendarDndEvent = {
 }
 
 const CalendarComponent = () => {
-  const { ownSchedulesState, isSuccess, refetch } = useQueryGetSchedules(1, 1, 0)
+  const { dataScheduleList, isSuccessScheduleList, refetchScheduleList } = useGetScheduleList(
+    1,
+    1,
+    0,
+  )
   const [initState, setInitState] = useState<CalendarDndEvent[]>()
 
   const [date, setDate] = useState(new Date(2015, 3, 1))
@@ -31,8 +35,8 @@ const CalendarComponent = () => {
   const onView = useCallback((newView) => setView(newView), [setView])
 
   useEffect(() => {
-    if (isSuccess) {
-      const temp = ownSchedulesState?.data.data.map((item) => {
+    if (isSuccessScheduleList) {
+      const temp = dataScheduleList?.data.data.map((item) => {
         return {
           start: moment(item.startDatetime).toDate(),
           end: moment(item.endDatetime).add(3, 'days').toDate(),
@@ -41,7 +45,7 @@ const CalendarComponent = () => {
       })
       setInitState(temp)
     }
-  }, [isSuccess])
+  }, [isSuccessScheduleList])
 
   const [evt, setEvt] = useState(initState)
 
