@@ -1,4 +1,4 @@
-import { API } from '@/app/_utils/Api'
+import API from '@/app/_utils/Api'
 import { useMutation } from '@tanstack/react-query'
 
 const deleteSchedule = async (scheduleId: number) => {

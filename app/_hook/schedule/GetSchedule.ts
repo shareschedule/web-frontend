@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { API } from '@/app/_utils/Api'
+import API from '@/app/_utils/Api'
 import { Schedule } from '@/app/_type/Schedule'
 import { ResponseModel } from '@/app/_type/api/responseModel/ResponseModel'
 import { AxiosError, AxiosResponse } from 'axios'

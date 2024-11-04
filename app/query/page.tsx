@@ -1,5 +1,4 @@
 import Querys from '@/app/query/Querys'
-import axios from 'axios'
 
 const page = () => {
   return (

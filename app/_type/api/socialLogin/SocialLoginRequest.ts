@@ -1,9 +1,14 @@
-export type SocialLoginRequestForNaver = {
+export type OauthCredential = {
   code: string
   state: string
 }
 
 export type UserInfo = {
   nickname: string
-  image: []
+  image: number[]
+}
+
+export type RequestSignup = {
+  oauthCredential: OauthCredential
+  userInfo: UserInfo
 }

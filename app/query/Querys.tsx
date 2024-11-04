@@ -10,6 +10,7 @@ import { useCreateCalendar } from '@/app/_hook/calendar/CreateCalendar'
 import { CreateCalendarRequest } from '@/app/_type/Calendar'
 import { useUpdateCalendar } from '@/app/_hook/calendar/UpdateCalendar'
 import { useDeleteCalendar } from '@/app/_hook/calendar/DeleteCalendar'
+import { useGetUser } from '@/app/_hook/sociallogin/GetUser'
 
 const Querys = () => {
   const requestSchedule: CreateScheduleRequest = {
@@ -41,11 +42,17 @@ const Querys = () => {
   const { mutateCreateCalendar } = useCreateCalendar(requestCalendar)
   const { mutateUpdateCalendar } = useUpdateCalendar(12, requestChangeCalendar)
   const { mutateDeleteCalendar } = useDeleteCalendar(10)
+
+  //
+  const { dataGetUser, isSuccessGetUser } = useGetUser()
   useEffect(() => {
     console.log('ownCalendarListState', stateGetOwnCalendarList)
     console.log('ownCalendarState', stateGetOwnCalendar)
   }, [isSuccessGetOwnCalendarList, isSuccessGetOwnCalendar])
 
+  useEffect(() => {
+    console.log('GET User Info', dataGetUser)
+  }, [isSuccessGetUser])
   return (
     <>
       <h1>Schedule</h1>

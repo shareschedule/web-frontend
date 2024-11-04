@@ -1,4 +1,4 @@
-import { API } from '@/app/_utils/Api'
+import API from '@/app/_utils/Api'
 import { useMutation } from '@tanstack/react-query'
 import { CreateScheduleRequest } from '@/app/_type/Schedule'
 
