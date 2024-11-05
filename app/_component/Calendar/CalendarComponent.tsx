@@ -7,7 +7,7 @@ import { Calendar, momentLocalizer, SlotInfo, stringOrDate, Views } from 'react-
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import AddScheduleBtn from '@/app/_component/Calendar/AddScheduleBtn'
-import { useModalFormState } from '@/app/_store/calendar/calendar'
+import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import { useGetScheduleList } from '@/app/_hook/schedule/GetSchedule'
 import moment from 'moment'
 import AddScheduleFormModal from '@/app/_component/Calendar/AddScheduleFormModal'
@@ -25,6 +25,7 @@ type CalendarDndEvent = {
 
 const CalendarComponent = () => {
   const { dataScheduleList, isSuccessScheduleList, refetchScheduleList } = useGetScheduleList()
+
   const [initState, setInitState] = useState<CalendarDndEvent[]>()
 
   const [date, setDate] = useState(new Date(2015, 3, 1))

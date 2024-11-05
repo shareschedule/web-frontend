@@ -4,7 +4,7 @@ import { StyledCalendar, StyledCalendarWrapper } from '@/app/_component/Calendar
 import { useState } from 'react'
 import { Value } from '@/node_modules/react-calendar/src/shared/types'
 import AddSchduleForm from '@/app/_component/Calendar/AddSchduleForm'
-import { useModalFormState } from '@/app/_store/calendar/calendar'
+import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import CalendarDropDownButton from '@/app/_component/calendarside/button/topaddbuttons/CalendarDropDownButton'
 import styled from 'styled-components'
 import MyCalendarsCollapse from '@/app/_component/calendarside/mycalendar/MyCalendarsCollapse'

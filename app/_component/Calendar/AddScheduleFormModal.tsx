@@ -1,5 +1,5 @@
 import { Button, Form, Modal } from 'react-bootstrap'
-import { useModalFormState } from '@/app/_store/calendar/calendar'
+import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
