@@ -39,7 +39,7 @@ const Querys = () => {
   //Calendar
   const { stateGetOwnCalendarList, isSuccessGetOwnCalendarList } = useGetOwnCalendarList()
   const { stateGetOwnCalendar, isSuccessGetOwnCalendar } = useGetOwnCalendar(8)
-  const { mutateCreateCalendar } = useCreateCalendar(requestCalendar)
+  const { mutateCreateCalendar } = useCreateCalendar()
   const { mutateUpdateCalendar } = useUpdateCalendar(12, requestChangeCalendar)
   const { mutateDeleteCalendar } = useDeleteCalendar(10)
 

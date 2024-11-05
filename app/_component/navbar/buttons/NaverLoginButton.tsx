@@ -6,7 +6,7 @@ const NaverLoginButton = () => {
   const loginURL = process.env.NEXT_PUBLIC_LOGIN_NAVER_URL
 
   const router = useRouter()
-  return <Button onClick={() => router.push(loginURL + '')}>Primary</Button>
+  return <Button onClick={() => router.push(loginURL + '')}>로그인</Button>
 }
 
 export default NaverLoginButton

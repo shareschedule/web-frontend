@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import API from '@/app/_utils/Api'
 import { Calendar } from '@/app/_type/Calendar'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ResponseModel } from '@/app/_type/api/responseModel/ResponseModel'
+import { CalendarResponseModel } from '@/app/_type/api/responseModel/ResponseModel'
 
 const getOwnCalendarList = async () => {
   return await API.get(process.env.NEXT_PUBLIC_GET_CALENDAR_LIST + '')
@@ -16,9 +16,9 @@ export const useGetOwnCalendarList = () => {
     isSuccess: isSuccessGetOwnCalendarList,
     refetch: refetchGetOwnCalendarList,
   } = useQuery<
-    AxiosResponse<ResponseModel<Calendar[]>>,
+    AxiosResponse<CalendarResponseModel<Calendar[]>>,
     AxiosError,
-    ResponseModel<Calendar[]>,
+    CalendarResponseModel<Calendar[]>,
     [string]
   >(
     {

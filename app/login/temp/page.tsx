@@ -25,12 +25,8 @@ export default function Home() {
   const [code, setCode] = useState()
   const [state, setState] = useState()
   const [oauth, setOauth] = useState({ code: '', state: '' })
-  const {
-    stateSocialLoginNaver,
-    isErrorSocialLoginNaver,
-    isSuccessSocialLoginNaver,
-    mutateSocialLoginNaver,
-  } = useSocialLoginNaver(oauth)
+  const { stateSocialLoginNaver, isSuccessSocialLoginNaver, mutateSocialLoginNaver } =
+    useSocialLoginNaver(oauth)
   // const { isErrorSocialSignupNaver, isSuccessSocialSignupNaver, mutateSocialSignupNaver } =
   //   useSocialSignupNaver(requestSignup)
   useEffect(() => {

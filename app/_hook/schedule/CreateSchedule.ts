@@ -10,7 +10,7 @@ const createSchedule = async (calendarId: number, body: CreateScheduleRequest) =
   )
 }
 
-export const useCreateSchedule = (calendarId: number, body: CreateScheduleRequest) => {
+export const useCreateSchedule = (calendarId: number) => {
   const {
     isPending: isPendingCreateSchedule,
     isError: isErrorCreateSchedule,
@@ -20,7 +20,7 @@ export const useCreateSchedule = (calendarId: number, body: CreateScheduleReques
   } = useMutation(
     {
       mutationKey: ['schedules', calendarId],
-      mutationFn: () => createSchedule(calendarId, body),
+      mutationFn: (body: CreateScheduleRequest) => createSchedule(calendarId, body),
       gcTime: 1000 * 60 * 60,
     }, // queryKey
   )

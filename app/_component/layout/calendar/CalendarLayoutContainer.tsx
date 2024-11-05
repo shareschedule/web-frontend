@@ -1,20 +1,16 @@
 'use client'
 
-import styled from "styled-components";
+import styled from 'styled-components'
 
-const CalendarLayoutContainer = ({ children } : Readonly<{children: React.ReactNode;}>) => {
-    return (
-        <FlexLayout>
-            {children}
-        </FlexLayout>
-    )
+const CalendarLayoutContainer = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+  return <GridLayout>{children}</GridLayout>
 }
 
-const FlexLayout = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-template-rows: 30px;
-    height: 100vh;
+const GridLayout = styled.div`
+  overflow: auto;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 100%;
 `
 
 export default CalendarLayoutContainer

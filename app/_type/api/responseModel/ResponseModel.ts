@@ -9,3 +9,12 @@ export type ResponseModel<T> = {
   status: number
   statusText: string
 }
+
+export type CalendarResponseModel<T> = {
+  config: object
+  data: T
+  headers: AxiosHeaders
+  request: XMLHttpRequest
+  status: number
+  statusText: string
+}

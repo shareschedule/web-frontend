@@ -3,6 +3,10 @@ import localFont from 'next/font/local'
 import './globals.css'
 import ReactQueryProvider from '@/app/_utils/ReactQueryProvider'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import TopNav from '@/app/_component/layout/TopNav'
+import React from 'react'
+import Footer from '@/app/_component/layout/Footer'
+import { Container, Row } from 'react-bootstrap'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -26,8 +30,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased  vw-100 vh-100 `}>
+        <ReactQueryProvider>
+          <Container className={'d-flex flex-column m-0 vw-100 vh-100 p-0 '} fluid>
+            <div>
+              <TopNav />
+            </div>
+            <div className={'overflow-auto h-100'}>{children}</div>
+            {/*<Footer />*/}
+          </Container>
+        </ReactQueryProvider>
       </body>
     </html>
   )

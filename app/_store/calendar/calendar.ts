@@ -5,16 +5,30 @@ interface ModalFormState {
   isOpen: boolean
   slotData: SlotInfo | null
 
-  changeOpen: (r: SlotInfo) => void
-  setSlotData: (r: SlotInfo) => void
-  removeSlotData: (r: SlotInfo) => void
+  showModal: () => void
+  closeModal: () => void
+
+  changeIsModalOpen: (r: SlotInfo) => void
+  setScheduleModalData: (r: SlotInfo) => void
+  removeScheduleModalData: (r: SlotInfo) => void
 }
 
 export const useModalFormState = create<ModalFormState>((set) => ({
   isOpen: false,
   slotData: null,
 
-  changeOpen: (r) => {
+  showModal: () => {
+    set(() => ({
+      isOpen: true,
+    }))
+  },
+  closeModal: () => {
+    set(() => ({
+      isOpen: false,
+    }))
+  },
+
+  changeIsModalOpen: (r) => {
     set((state) => ({
       isOpen: !state.isOpen,
     }))
@@ -23,10 +37,10 @@ export const useModalFormState = create<ModalFormState>((set) => ({
       slotData: state.isOpen ? r : null,
     }))
   },
-  setSlotData: (r) => {
+  setScheduleModalData: (r) => {
     set(() => ({ slotData: r }))
   },
-  removeSlotData: () => {
+  removeScheduleModalData: () => {
     set(() => ({ slotData: null }))
   },
 }))
