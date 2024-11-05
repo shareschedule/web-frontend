@@ -34,6 +34,7 @@ export const useGetScheduleList = (calendarId: number, limit: number, offset: nu
       queryFn: () => getSchedules(calendarId, limit, offset),
       gcTime: 1000 * 60 * 60,
       staleTime: 1000 * 60 * 60,
+      enabled: calendarId !== -1 && limit !== null && offset !== null,
     }, // queryKey
   )
   return {
