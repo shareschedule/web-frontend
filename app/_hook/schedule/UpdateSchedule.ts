@@ -7,8 +7,6 @@ const updateSchedule = async (
   scheduleId: number,
   body: CreateScheduleRequest,
 ) => {
-  console.log('[PUT] update schedule')
-
   return await API.put(
     //   TODO: CalendarId 은닉하기 : body에 넣기? 혹은 PathVariable 유지 ?
     process.env.NEXT_PUBLIC_UPDATE_SCHEDULE + '/' + calendarId + '/' + scheduleId,

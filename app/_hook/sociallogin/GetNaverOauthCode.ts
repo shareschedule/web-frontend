@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 
 const getNaverOauthCode = async () => {
-  console.log(process.env.NEXT_PUBLIC_LOGIN_NAVER)
   return await API.get(process.env.NEXT_PUBLIC_LOGIN_NAVER_URL + '')
 }
 

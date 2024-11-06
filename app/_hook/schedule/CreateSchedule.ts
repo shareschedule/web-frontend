@@ -1,6 +1,7 @@
 import API from '@/app/_utils/Api'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CreateScheduleRequest } from '@/app/_type/Schedule'
+import { useGetScheduleList } from '@/app/_hook/schedule/GetSchedule'
 
 const createSchedule = async (calendarId: number, body: CreateScheduleRequest) => {
   return await API.post(
@@ -11,6 +12,8 @@ const createSchedule = async (calendarId: number, body: CreateScheduleRequest) =
 }
 
 export const useCreateSchedule = (calendarId: number) => {
+  const queryClient = useQueryClient()
+  const { refetchScheduleList } = useGetScheduleList(calendarId, 1, 0)
   const {
     isPending: isPendingCreateSchedule,
     isError: isErrorCreateSchedule,
@@ -20,8 +23,13 @@ export const useCreateSchedule = (calendarId: number) => {
   } = useMutation(
     {
       mutationKey: ['schedules', calendarId],
-      mutationFn: (body: CreateScheduleRequest) => createSchedule(calendarId, body),
+      mutationFn: (body: CreateScheduleRequest) => {
+        return createSchedule(calendarId, body)
+      },
       gcTime: 1000 * 60 * 60,
+      onSuccess: () => {
+        refetchScheduleList()
+      },
     }, // queryKey
   )
   return {

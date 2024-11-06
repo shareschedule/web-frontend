@@ -11,10 +11,12 @@ import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import { useGetScheduleList } from '@/app/_hook/schedule/GetSchedule'
 import moment from 'moment'
 import AddScheduleFormModal from '@/app/_component/Calendar/AddScheduleFormModal'
-import { Button, Form, Modal } from 'react-bootstrap'
+import { useCurrentCalendarState } from '@/app/_store/calendar/currentCalendar'
+import { useQueryClient } from '@tanstack/react-query'
+import { useCreateSchedule } from '@/app/_hook/schedule/CreateSchedule'
 
+moment.locale('ko-KR')
 const localizer = momentLocalizer(moment)
-
 const DndCalendar = withDragAndDrop(Calendar)
 
 type CalendarDndEvent = {
@@ -24,8 +26,14 @@ type CalendarDndEvent = {
 }
 
 const CalendarComponent = () => {
-  const { dataScheduleList, isSuccessScheduleList, refetchScheduleList } = useGetScheduleList()
-
+  const { currentCalendarId } = useCurrentCalendarState()
+  const { dataScheduleList, isSuccessScheduleList, refetchScheduleList } = useGetScheduleList(
+    currentCalendarId,
+    1,
+    0,
+  )
+  const scheduleDataList = useQueryClient().getQueryData(['schedules', currentCalendarId])
+  const { isSuccessCreateSchedule } = useCreateSchedule()
   const [initState, setInitState] = useState<CalendarDndEvent[]>()
 
   const [date, setDate] = useState(new Date(2015, 3, 1))
@@ -38,17 +46,15 @@ const CalendarComponent = () => {
     useModalFormState()
 
   useEffect(() => {
-    if (isSuccessScheduleList) {
-      const temp = dataScheduleList?.data.data.map((item) => {
-        return {
-          start: moment(item.startDatetime).toDate(),
-          end: moment(item.endDatetime).add(3, 'days').toDate(),
-          title: item.title,
-        }
-      })
-      setInitState(temp)
-    }
-  }, [isSuccessScheduleList])
+    const calendarItems = dataScheduleList?.data.data.map((item) => {
+      return {
+        start: moment(item.startDatetime).toDate(),
+        end: moment(item.endDatetime).toDate(),
+        title: item.title,
+      }
+    })
+    setInitState(calendarItems)
+  }, [currentCalendarId, dataScheduleList])
 
   const [evt, setEvt] = useState(initState)
 
@@ -65,10 +71,9 @@ const CalendarComponent = () => {
   }
 
   const handleOnSelectSlot = (data: SlotInfo) => {
+    data.end = moment(data.end).subtract(1, 'minute').toDate()
     setScheduleModalData(data)
-
     showModal()
-    console.log('slotData', slotData)
   }
 
   return (

@@ -46,11 +46,6 @@ const Querys = () => {
   //
   const { dataGetUser, isSuccessGetUser } = useGetUser()
   useEffect(() => {
-    console.log('ownCalendarListState', stateGetOwnCalendarList)
-    console.log('ownCalendarState', stateGetOwnCalendar)
-  }, [isSuccessGetOwnCalendarList, isSuccessGetOwnCalendar])
-
-  useEffect(() => {
     console.log('GET User Info', dataGetUser)
   }, [isSuccessGetUser])
   return (

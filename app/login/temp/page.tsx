@@ -42,9 +42,6 @@ export default function Home() {
     router.push('/')
   }, [isSuccessSocialLoginNaver])
 
-  if (isSuccessSocialLoginNaver) {
-    console.log(stateSocialLoginNaver)
-  }
   const loginURL = process.env.NEXT_PUBLIC_LOGIN_NAVER_URL
 
   const testSign = () => {

@@ -10,7 +10,6 @@ const TopNav = () => {
   const { dataGetUser, isSuccessGetUser, isErrorGetUser } = useGetUser()
   const router = useRouter()
   useEffect(() => {
-    console.log(dataGetUser)
     if (isSuccessGetUser) {
       router.push('/calendar')
     }
@@ -21,7 +20,7 @@ const TopNav = () => {
         <Navbar.Brand href="/">이름 미정</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          {isSuccessGetUser ? dataGetUser?.data.nickname : <NaverLoginButton />}
+          {isSuccessGetUser ? dataGetUser?.data.data.nickname : <NaverLoginButton />}
         </Navbar.Collapse>
       </Container>
     </Navbar>

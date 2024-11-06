@@ -8,7 +8,6 @@ import { useGetUser } from '@/app/_hook/sociallogin/GetUser'
 export default function Home() {
   const { dataGetUser } = useGetUser()
 
-  console.log(dataGetUser?.data)
   if (dataGetUser?.data == null) return null
   return (
     <CalendarLayoutContainer>

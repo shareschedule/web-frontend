@@ -42,8 +42,6 @@ export const useSocialLoginNaver = (body: OauthCredential) => {
         document.cookie = accessTokenCookie
         document.cookie = refreshTokenCookie
 
-        console.log('data in Mutation', data.data)
-
         // TODO: 나중에 필요없으면 지우기
         localStorage.setItem('user', JSON.stringify(data.data))
         queryClient.setQueryData(['user'], user)

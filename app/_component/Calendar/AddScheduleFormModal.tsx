@@ -4,10 +4,16 @@ import { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { useCreateSchedule } from '@/app/_hook/schedule/CreateSchedule'
+import { useCurrentCalendarState } from '@/app/_store/calendar/currentCalendar'
+import { CreateScheduleRequest } from '@/app/_type/Schedule'
+import moment from 'moment'
 
 const AddScheduleFormModal = ({}) => {
+  moment.locale('ko-KR')
+
   const { isOpen, showModal, closeModal, slotData } = useModalFormState()
-  useCreateSchedule()
+  const { currentCalendarId } = useCurrentCalendarState()
+  const { mutateCreateSchedule } = useCreateSchedule(currentCalendarId)
 
   const [scheduleTitle, setScheduleTitle] = useState('')
   const [scheduleContent, setScheduleContent] = useState('')
@@ -17,13 +23,22 @@ const AddScheduleFormModal = ({}) => {
 
   const [startDatePicker, setStartDatePicker] = useState<Date | null | undefined>(new Date())
   const [endDatePicker, setEndDatePicker] = useState<Date | null | undefined>(new Date())
-  console.log('startDatePicker', startDatePicker)
-  console.log('slotData', slotData)
   useEffect(() => {
     setStartDatePicker(slotData?.start)
     setEndDatePicker(slotData?.end)
   }, [slotData])
-  const handleCreateSchedule = () => {}
+
+  const handleCreateSchedule = () => {
+    const request: CreateScheduleRequest = {
+      title: scheduleTitle,
+      isAllday: isAllday,
+      startDatetime: moment(slotData?.start).add(9, 'hour').toDate(),
+      endDatetime: moment(slotData?.end).add(9, 'hour').toDate(),
+      content: scheduleContent,
+    }
+    mutateCreateSchedule(request)
+    closeModal()
+  }
   return (
     <>
       <Modal show={isOpen} onHide={closeModal}>

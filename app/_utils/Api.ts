@@ -22,7 +22,6 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
-    console.log(error)
     const httpStatus = error.status
     const accessTokenExpireTime = 1000 * 60 * 60
     const refreshTokenExpireTime = 1000 * 60 * 60
@@ -47,13 +46,10 @@ API.interceptors.response.use(
             expires: refreshTokenExpireTime,
             path: tokenPath,
           }
-          console.log(accessCookieConfig)
           Cookies.set('accessToken', response.data.data.accessToken, accessCookieConfig)
           Cookies.set('refreshToken', response.data.data.refreshToken, refreshCookieConfig)
         })
-        .catch((e) => {
-          console.log(e)
-        })
+        .catch((e) => {})
     }
   },
 )
