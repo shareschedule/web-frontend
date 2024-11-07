@@ -19,7 +19,7 @@ import { CreateScheduleRequest, Schedule } from '@/app/_type/Schedule'
 
 moment.locale('ko-KR')
 const localizer = momentLocalizer(moment)
-const DndCalendar = withDragAndDrop(Calendar)
+const DndCalendar = withDragAndDrop<CalendarDndEvent>(Calendar)
 
 type CalendarDndEvent = {
   start: stringOrDate
@@ -68,7 +68,7 @@ const CalendarComponent = () => {
     setInitState(calendarItems)
   }, [currentCalendarId, dataScheduleList])
 
-  const resizeCallback = useCallback(
+  const resizeDropCallback = useCallback(
     ({
       event,
       start,
@@ -110,9 +110,6 @@ const CalendarComponent = () => {
     },
     [setInitState],
   )
-  const onEventDrop = (data: EventInteractionArgs<object>) => {
-    //TODO: dnd evt 추가하기
-  }
 
   const handleOnSelectSlot = (data: SlotInfo) => {
     data.end = moment(data.end).subtract(1, 'minute').toDate()
@@ -129,8 +126,8 @@ const CalendarComponent = () => {
         events={initState}
         localizer={localizer}
         onNavigate={onNavigate}
-        onEventDrop={onEventDrop}
-        onEventResize={resizeCallback}
+        onEventDrop={resizeDropCallback}
+        onEventResize={resizeDropCallback}
         onSelectSlot={(r) => {
           handleOnSelectSlot(r)
         }}
