@@ -20,7 +20,7 @@ const TopNav = () => {
         <Navbar.Brand href="/">이름 미정</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          {isSuccessGetUser ? dataGetUser?.data.data.nickname : <NaverLoginButton />}
+          {isSuccessGetUser ? dataGetUser?.data.nickname : <NaverLoginButton />}
         </Navbar.Collapse>
       </Container>
     </Navbar>

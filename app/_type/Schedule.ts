@@ -15,6 +15,13 @@ export type Schedule = {
 }
 
 export type CreateScheduleRequest = {
+  body: UpdateScheduleRequestBody
+
+  calendarId: number
+  scheduleId: number
+}
+
+export type UpdateScheduleRequestBody = {
   title: string
   isAllday: boolean
   startDatetime: stringOrDate

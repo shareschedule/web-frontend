@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
 import API from '@/app/_utils/Api'
-import { ResponseModel } from '@/app/_type/api/responseModel/ResponseModel'
 import { AxiosError, AxiosResponse } from 'axios'
 import { User } from '@/app/_type/api/user/User'
 const getUser = async () => {
@@ -14,7 +13,7 @@ export const useGetUser = () => {
     data: dataGetUser,
     isSuccess: isSuccessGetUser,
     refetch: refetchGetUser,
-  } = useQuery<AxiosResponse<ResponseModel<User>>, AxiosError, ResponseModel<User>, [string]>(
+  } = useQuery<AxiosResponse<User>, AxiosError, User, [string]>(
     {
       queryKey: ['user'],
       queryFn: () => getUser(),
