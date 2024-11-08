@@ -10,7 +10,7 @@ import { useCreateCalendar } from '@/app/_hook/calendar/CreateCalendar'
 import { CreateCalendarRequest } from '@/app/_type/Calendar'
 import { useUpdateCalendar } from '@/app/_hook/calendar/UpdateCalendar'
 import { useDeleteCalendar } from '@/app/_hook/calendar/DeleteCalendar'
-import { useGetUser } from '@/app/_hook/sociallogin/GetUser'
+import { useGetUser } from '@/app/_hook/user/GetUser'
 
 const Querys = () => {
   const requestSchedule: CreateScheduleRequest = {
@@ -51,8 +51,8 @@ const Querys = () => {
   return (
     <>
       <h1>Schedule</h1>
-      <button onClick={() => mutateUpdateSchedule()}>[PUT O] Schedule 업데이트</button>
-      <br />
+      {/*<button onClick={() => mutateUpdateSchedule()}>[PUT O] Schedule 업데이트</button>*/}
+      {/*<br />*/}
       <button onClick={() => mutateDeleteSchedule()}>[DEL O] Schedule 삭제</button>
       <hr />
       <button>[GET O] Calendar 단건 조회</button>
@@ -61,8 +61,8 @@ const Querys = () => {
       <hr />
       <h1>Calendar</h1>
 
-      <br />
-      <button onClick={() => mutateCreateCalendar()}>[PUT O] Calendar 생성</button>
+      {/*<br />*/}
+      {/*<button onClick={() => mutateCreateCalendar()}>[PUT O] Calendar 생성</button>*/}
       <br />
       <button onClick={() => mutateUpdateCalendar()}>[PUT O] Calendar 업데이트</button>
       <br />

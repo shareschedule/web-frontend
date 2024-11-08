@@ -1,8 +1,9 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import API from '@/app/_utils/Api'
 import { Schedule } from '@/app/_type/Schedule'
 import { ResponseModel } from '@/app/_type/api/responseModel/ResponseModel'
 import { AxiosError, AxiosResponse } from 'axios'
+import { User } from '@/app/_type/api/user/User'
 
 const getSchedules = async (calendarId: number, limit: number, offset: number) => {
   return await API.get(

@@ -1,7 +1,7 @@
 import API from '@/app/_utils/Api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { OauthCredential } from '@/app/_type/api/socialLogin/SocialLoginRequest'
-import { useGetUser } from '@/app/_hook/sociallogin/GetUser'
+import { useGetUser } from '@/app/_hook/user/GetUser'
 
 const DAY = 60 * 60 * 24
 const HOUR = 60 * 60
@@ -44,7 +44,6 @@ export const useSocialLoginNaver = (body: OauthCredential) => {
 
         // TODO: 나중에 필요없으면 지우기
         localStorage.setItem('user', JSON.stringify(data.data))
-        queryClient.setQueryData(['user'], user)
       },
       gcTime: 1000 * 60 * 60,
     }, // queryKey

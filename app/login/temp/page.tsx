@@ -5,14 +5,10 @@ import { useSocialLoginNaver } from '@/app/_hook/sociallogin/SocialLoginNaver'
 import { OauthCredential, RequestSignup } from '@/app/_type/api/socialLogin/SocialLoginRequest'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
-import { useGetUser } from '@/app/_hook/sociallogin/GetUser'
+import { useGetUser } from '@/app/_hook/user/GetUser'
 import { useQueryClient } from '@tanstack/react-query'
 
 let token: string
-let state: string
-
-let oauthCredential: OauthCredential
-let requestSignup: RequestSignup
 
 export default function Home() {
   const user = useQueryClient().getQueryData('user')
@@ -54,16 +50,8 @@ export default function Home() {
   return (
     <h1 className="text-sky-400 text-3xl font-bold underline">
       Hello world!
-      <a href={loginURL}>
-        <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG" />
-      </a>
-      <LoginButton onClick={() => mutateSocialLoginNaver()}>TestLogin</LoginButton>
+      <img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG" />
       <hr />
-      <LoginButton onClick={testSign}>Signup</LoginButton>a
     </h1>
   )
 }
-
-const LoginButton = styled.div`
-  background-color: red;
-`

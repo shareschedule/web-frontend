@@ -3,7 +3,6 @@
 import { StyledCalendar, StyledCalendarWrapper } from '@/app/_component/Calendar/MiniCalendar'
 import { useState } from 'react'
 import { Value } from '@/node_modules/react-calendar/src/shared/types'
-import AddSchduleForm from '@/app/_component/Calendar/AddSchduleForm'
 import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import CalendarDropDownButton from '@/app/_component/calendarside/button/topaddbuttons/CalendarDropDownButton'
 import styled from 'styled-components'
@@ -38,7 +37,7 @@ const SideContent = () => {
       <MyCalendar className={'p-3'}>
         <MyCalendarsCollapse />
       </MyCalendar>
-      <OtherCalendar>asdf</OtherCalendar>
+      <OtherCalendar></OtherCalendar>
     </div>
   )
 }

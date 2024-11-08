@@ -9,8 +9,7 @@ import { CreateScheduleRequest } from '@/app/_type/Schedule'
 import moment from 'moment'
 
 const AddScheduleFormModal = ({}) => {
-  moment.locale('ko-KR')
-
+  moment.defaultFormat = 'YYYY-MM-DDTHH:mm:sszz'
   const { isOpen, showModal, closeModal, slotData } = useModalFormState()
   const { currentCalendarId } = useCurrentCalendarState()
   const { mutateCreateSchedule } = useCreateSchedule(currentCalendarId)
@@ -32,8 +31,8 @@ const AddScheduleFormModal = ({}) => {
     const request: CreateScheduleRequest = {
       title: scheduleTitle,
       isAllday: isAllday,
-      startDatetime: moment(slotData?.start).add(9, 'hour').toDate(),
-      endDatetime: moment(slotData?.end).add(9, 'hour').toDate(),
+      startDatetime: moment(slotData?.start).format('YYYY-MM-DDTHH:mm:sszz'),
+      endDatetime: moment(slotData?.end).format('YYYY-MM-DDTHH:mm:sszz'),
       content: scheduleContent,
     }
     mutateCreateSchedule(request)

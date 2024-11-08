@@ -2,20 +2,18 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 
-import withDragAndDrop, { EventInteractionArgs } from 'react-big-calendar/lib/addons/dragAndDrop'
-import { Calendar, momentLocalizer, SlotInfo, stringOrDate, Views } from 'react-big-calendar'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
+import { Calendar, momentLocalizer, SlotInfo, stringOrDate } from 'react-big-calendar'
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import AddScheduleBtn from '@/app/_component/Calendar/AddScheduleBtn'
 import { useModalFormState } from '@/app/_store/calendar/addScheduleModalForm'
 import { useGetScheduleList } from '@/app/_hook/schedule/GetSchedule'
 import moment from 'moment'
 import AddScheduleFormModal from '@/app/_component/Calendar/AddScheduleFormModal'
 import { useCurrentCalendarState } from '@/app/_store/calendar/currentCalendar'
-import { useQueryClient } from '@tanstack/react-query'
-import { useCreateSchedule } from '@/app/_hook/schedule/CreateSchedule'
 import { useUpdateSchedule } from '@/app/_hook/schedule/UpdateSchedule'
-import { CreateScheduleRequest, Schedule } from '@/app/_type/Schedule'
+import { CreateScheduleRequest } from '@/app/_type/Schedule'
+import { useGetUser } from '@/app/_hook/user/GetUser'
 
 moment.locale('ko-KR')
 const localizer = momentLocalizer(moment)
@@ -33,33 +31,29 @@ type CalendarDndEvent = {
 }
 
 const CalendarComponent = () => {
-  const { currentCalendarId } = useCurrentCalendarState()
-  const [updateScheduleId, setUpdateScheduleId] = useState(0)
-
-  const { dataScheduleList, isSuccessScheduleList, refetchScheduleList } = useGetScheduleList(
-    currentCalendarId,
-    1,
-    0,
-  )
+  const { dataGetUser, isSuccessGetUser, isLoadingGetUser } = useGetUser()
+  const { currentCalendarId, setCurrentCalendarId } = useCurrentCalendarState()
+  const { dataScheduleList } = useGetScheduleList(currentCalendarId, 1, 0)
   const { mutateUpdateSchedule } = useUpdateSchedule()
-  const scheduleDataList = useQueryClient().getQueryData(['schedules', currentCalendarId])
-  const { isSuccessCreateSchedule } = useCreateSchedule()
   const [initState, setInitState] = useState<CalendarDndEvent[]>()
 
-  const [date, setDate] = useState(new Date(2015, 3, 1))
-  const [view, setView] = useState(Views.MONTH)
+  const [date, setDate] = useState(new Date())
+  const [view, setView] = useState('month')
 
-  const onNavigate = useCallback((newDate) => setDate(newDate), [setDate])
-  const onView = useCallback((newView) => setView(newView), [setView])
-
-  const { isOpen, showModal, closeModal, changeIsModalOpen, slotData, setScheduleModalData } =
-    useModalFormState()
-
+  const onNavigate = useCallback((newDate: Date) => setDate(newDate), [setDate])
+  const onView = useCallback((newView: string) => setView(newView), [setView])
+  const { showModal, setScheduleModalData } = useModalFormState()
+  if (isLoadingGetUser) return 'loading'
   useEffect(() => {
+    console.log(dataGetUser)
+    if (!isLoadingGetUser) setCurrentCalendarId(dataGetUser?.data.data.recentCalendarId ?? 0)
+  }, [isSuccessGetUser])
+  useEffect(() => {
+    console.log(dataScheduleList)
     const calendarItems = dataScheduleList?.data.data.map((item) => {
       return {
-        start: moment(item.startDatetime).toDate(),
-        end: moment(item.endDatetime).toDate(),
+        start: moment(item.startDatetime).format('YYYY-MM-DDTHH:mm:sszz'),
+        end: moment(item.endDatetime).format('YYYY-MM-DDTHH:mm:sszz'),
         title: item.title,
         scheduleId: item.id,
         calendarId: item.calendarId,
@@ -112,7 +106,6 @@ const CalendarComponent = () => {
   )
 
   const handleOnSelectSlot = (data: SlotInfo) => {
-    data.end = moment(data.end).subtract(1, 'minute').toDate()
     setScheduleModalData(data)
     showModal()
   }

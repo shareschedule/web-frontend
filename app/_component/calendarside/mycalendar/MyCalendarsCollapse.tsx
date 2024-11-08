@@ -1,8 +1,12 @@
-import { Button, Collapse, Form, Modal } from 'react-bootstrap'
+import { Button, Collapse, Form, ListGroup, Modal } from 'react-bootstrap'
 import { SetStateAction, useState } from 'react'
 import { useCreateCalendar } from '@/app/_hook/calendar/CreateCalendar'
 import { CreateCalendarRequest } from '@/app/_type/Calendar'
-import MyCalendarList from '@/app/_component/calendarside/mycalendar/MyCalendarList'
+import { useGetOwnCalendarList } from '@/app/_hook/calendar/GetOwnCalendarList'
+import { useQueryClient } from '@tanstack/react-query'
+import { useCurrentCalendarState } from '@/app/_store/calendar/currentCalendar'
+import { useUpdateRecentSchedule } from '@/app/_hook/user/UpdateRecentCalendar'
+import { UpdateRecentCalendarRequest } from '@/app/_type/api/user/UpdateRecentCalendarRequest'
 
 const MyCalendarsCollapse = () => {
   const [open, setOpen] = useState(true)
@@ -11,11 +15,19 @@ const MyCalendarsCollapse = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [isPublic, setIsPublic] = useState(false)
+  const { currentCalendarId, setCurrentCalendarId } = useCurrentCalendarState()
 
+  const { stateGetOwnCalendarList } = useGetOwnCalendarList()
   const { mutateCreateCalendar } = useCreateCalendar()
+
+  const request: UpdateRecentCalendarRequest = {
+    recentCalendarId: currentCalendarId,
+  }
+  const { mutateUpdateRecentSchedule } = useUpdateRecentSchedule(request)
 
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
+  const queryClient = useQueryClient()
 
   const handleTitle = (e: { target: { value: SetStateAction<string> } }) => {
     setTitle(e.target.value)
@@ -34,6 +46,13 @@ const MyCalendarsCollapse = () => {
     }
     mutateCreateCalendar(requestDate)
     setShow(false)
+  }
+  const handleClickCalendar = (id: number) => {
+    queryClient.invalidateQueries({
+      queryKey: ['schedules', id],
+    })
+    setCurrentCalendarId(id)
+    mutateUpdateRecentSchedule()
   }
   return (
     <div>
@@ -59,7 +78,15 @@ const MyCalendarsCollapse = () => {
         </div>
       </Button>
       <Collapse in={open}>
-        <MyCalendarList />
+        <ListGroup variant="flush">
+          {stateGetOwnCalendarList?.data.map((item, key) => {
+            return (
+              <ListGroup.Item key={key} onClick={() => handleClickCalendar(item?.id)}>
+                <div key={key}>title: {item.title}</div>
+              </ListGroup.Item>
+            )
+          })}
+        </ListGroup>
       </Collapse>
 
       {/*  캘린더 생성 모달 창 */}

@@ -30,6 +30,7 @@ export const useUpdateSchedule = () => {
         calendarId = request.calendarId
         return updateSchedule(request.calendarId, request.scheduleId, request.body)
       },
+
       gcTime: 1000 * 60 * 60,
     }, // queryKey
   )

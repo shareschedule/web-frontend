@@ -40,6 +40,7 @@ export const useModalFormState = create<ModalFormState>((set) => ({
   setScheduleModalData: (r) => {
     set(() => ({ slotData: r }))
   },
+
   removeScheduleModalData: () => {
     set(() => ({ slotData: null }))
   },
